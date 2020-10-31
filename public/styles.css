@@ -23,6 +23,13 @@ h1 {
     color: white;
 }
 
+.addMovieButton {
+    border-radius: 5px;
+    font-size: 15px;
+    outline: none;
+    box-shadow: none;
+}
+
 span {
     margin: 20px;
     font-size: 25px;
@@ -41,10 +48,11 @@ span {
     box-shadow: none;
 }
 
+.addMovieButton, 
 .watchedButton {
     background-color: #a0ed98;
     color: white;
-    border: none;
+    border: 2px solid white;
 }
 
 .notWatchedButton {
