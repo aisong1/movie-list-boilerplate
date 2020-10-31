@@ -63,7 +63,6 @@ class App extends React.Component {
         <div className="search">
           <Search
             handleSearchChange={this.handleSearchChange.bind(this)}
-            handleSearchSubmit={this.handleSearchSubmit.bind(this)}
           />
         </div>
         <div className="movieList">

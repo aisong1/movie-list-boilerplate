@@ -12,10 +12,43 @@ h1 {
 
 .movieListItem {
     border: 1px solid black;
-    margin: 10px;
+    margin: 10px auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .noMovieFound {
     background-color: red;
     color: white;
+}
+
+span {
+    margin: 20px;
+    font-size: 25px;
+}
+
+.watchedContainer {
+    max-width: 100px;
+}
+
+.watchedButton,
+.notWatchedButton {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 15px; 
+    outline: none;
+    box-shadow: none;
+}
+
+.watchedButton {
+    background-color: #a0ed98;
+    color: white;
+    border: none;
+}
+
+.notWatchedButton {
+    background-color: white;
+    color: black;
+    border: 2px solid #a0ed98; /* Green */
 }
