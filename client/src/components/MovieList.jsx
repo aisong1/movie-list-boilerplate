@@ -1,16 +1,12 @@
 import React from 'react';
+import MovieListItem from './MovieListItem.jsx';
 
 var MovieList = (props) => (
   <div>
-    {props.movies.map((movie) => {
-      if (movie) {
-        return (
-          <div className="movieListItem">
-            <h3>{movie.title}</h3>
-          </div>
-        )
-      }
-    })} 
+    {console.log('Movies from inside MovieList: ', props.movies)}
+    {props.movies.map((movie) => (
+      <MovieListItem key={movie.title} movie={movie} />
+    ))} 
   </div>
 )
 

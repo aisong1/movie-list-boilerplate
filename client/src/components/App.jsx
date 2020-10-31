@@ -20,26 +20,10 @@ class App extends React.Component {
     });
   }
 
-  handleSearchSubmit(e) {
-    var searchedMovies = this.state.movies;
-    if (this.state.movieSearch !== '') {
-      searchedMovies = [];
-      for (var i = 0; i < this.state.movies.length; i++) {
-        if (this.state.movies[i].title.includes(this.state.movieSearch)) {
-          searchedMovies.push(this.state.movies[i]);
-        }
-      }
-    }
-    
-    if (searchedMovies.length === 0) {
-      // this.handleNoMovieFound();
-      alert('No movie by that name was found. Try again.')
-    } else {
-      this.setState({
-        movies: searchedMovies
-      });
-    }
-    e.preventDefault();
+  handleSearchSubmit() {
+    return this.state.movies.filter((movie) => {
+      return movie.title.toLowerCase().includes(this.state.movieSearch.toLowerCase());
+    })
   }
 
   handleAddChange(e) {
@@ -64,17 +48,8 @@ class App extends React.Component {
     this.setState({
       movies: this.state.movies
     })
-    //document.getElementsById("addBar").value = '';
     e.preventDefault();
   }
-
-  // handleNoMovieFound() {
-  //   return (
-  //     <div className="noMovieFound">
-  //       <h3>No movie by that name was found. Try again.</h3>
-  //     </div>
-  //   )
-  // }
 
   render() {
     return (
@@ -93,7 +68,7 @@ class App extends React.Component {
         </div>
         <div className="movieList">
           <MovieList
-            movies={this.state.movies}
+            movies={this.handleSearchSubmit()}
           />
         </div>
       </div>
