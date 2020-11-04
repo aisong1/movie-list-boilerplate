@@ -11,14 +11,14 @@ class MovieListItem extends React.Component {
 
   render() {
     return (
-      <div className="movieListItem">
-        <span>{this.state.movie.title}</span>
-        <span>
-          <div className="watchedContainer" onClick={() => this.setState({watched: !this.state.watched})}>
-            {this.state.watched ? <button className="watchedButton">Watched</button> : <button className="notWatchedButton">Watched</button>}
-          </div>
-        </span>
-      </div>
+      <tr>
+        <td>
+          <span>{this.state.movie.title}</span>
+          <span className="watchedContainer" onClick={() => this.setState({watched: !this.state.watched})}>
+              {this.state.watched ? <button className="watchedButton">Watched</button> : <button className="notWatchedButton">Watched</button>}
+          </span>
+        </td>
+      </tr>
     )
   }
 
