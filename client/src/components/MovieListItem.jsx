@@ -4,16 +4,22 @@ class MovieListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie: props.movie,
       watched: false,
     }
   }
+
+  // handleWatched() {
+  //   this.setState({
+  //     watched: !this.state.watched
+  //   });
+  //   this.props.handle
+  // }
 
   render() {
     return (
       <tr>
         <td>
-          <span>{this.state.movie.title}</span>
+          <span>{this.props.movie.title}</span>
           <span className="watchedContainer" onClick={() => this.setState({watched: !this.state.watched})}>
               {this.state.watched ? <button className="watchedButton">Watched</button> : <button className="notWatchedButton">Watched</button>}
           </span>

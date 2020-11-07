@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Search = (props) => (
-  <form id="searchBar" className="searchBar">
+  <form id="searchBar" className="searchBar" onSubmit={(e) => props.handleSearchSubmit(e)}>
     <input 
       type="text"
       placeholder="Search..."

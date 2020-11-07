@@ -9,6 +9,7 @@ class App extends React.Component {
 
     this.state = {
       movies: [],
+      moviesToRender: [],
       movieSearch: '',
       addMovieTitle: '',
     };
@@ -20,10 +21,20 @@ class App extends React.Component {
     });
   }
 
-  handleSearchSubmit() {
-    return this.state.movies.filter((movie) => {
+  handleSearchSubmit(e) {
+    const searched = this.state.movies.filter((movie) => {
       return movie.title.toLowerCase().includes(this.state.movieSearch.toLowerCase());
+    });
+    this.setState({
+      moviesToRender: searched
+    }, (err) => {
+      if (err) {
+        throw new Error(err);
+      } else {
+        this.render();
+      }
     })
+    e.preventDefault();
   }
 
   handleAddChange(e) {
@@ -33,10 +44,11 @@ class App extends React.Component {
   }
 
   handleAddSubmit(e) {
-    var newMovie = {
-      title: this.state.addMovieTitle
+    const newMovie = {
+      title: this.state.addMovieTitle,
+      watched: false
     }
-    var hasAlreadyBeenAdded = false;
+    let hasAlreadyBeenAdded = false;
     for (var i = 0; i < this.state.movies.length; i++) {
       if (this.state.movies[i].title === this.state.addMovieTitle) {
         hasAlreadyBeenAdded = true;
@@ -44,11 +56,37 @@ class App extends React.Component {
     }
     if (!hasAlreadyBeenAdded) {
       this.state.movies.push(newMovie);
+      console.log(this.state.movies);
     }
     this.setState({
-      movies: this.state.movies
+      movies: this.state.movies,
+      moviesToRender: this.state.movies
+    }, (err) => {
+      if (err) {
+        throw new Error(err);
+      } else {
+        this.render();
+      }
     })
     e.preventDefault();
+  }
+
+  handleWatchedClicked() {
+    const watched = this.state.movies.filter((movie) => {
+      return movie.title.toLowerCase().includes(this.state.movieSearch.toLowerCase());
+    });
+    this.setState({
+      moviesToRender: watched
+    })
+  }
+
+  handleToWatchClicked() {
+    const toWatch = this.state.movies.filter((movie) => {
+      return movie.title.toLowerCase().includes(this.state.movieSearch.toLowerCase());
+    });
+    this.setState({
+      moviesToRender: toWatch
+    })
   }
 
   render() {
@@ -63,11 +101,12 @@ class App extends React.Component {
         <div className="search">
           <Search
             handleSearchChange={this.handleSearchChange.bind(this)}
+            handleSearchSubmit={this.handleSearchSubmit.bind(this)}
           />
         </div>
-        <MovieList
-          movies={this.handleSearchSubmit()}
-        />
+          <MovieList
+            movies={this.state.moviesToRender}
+          />
       </div>
     )
   }
