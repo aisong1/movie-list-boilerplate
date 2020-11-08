@@ -38,9 +38,11 @@ class App extends React.Component {
   }
 
   handleAddChange(e) {
-    this.setState({
-      addMovieTitle: e.currentTarget.value
-    });
+    if (e.currentTarget.value !== '') {
+      this.setState({
+        addMovieTitle: e.currentTarget.value
+      });
+    }
   }
 
   handleAddSubmit(e) {
@@ -56,7 +58,6 @@ class App extends React.Component {
     }
     if (!hasAlreadyBeenAdded) {
       this.state.movies.push(newMovie);
-      console.log(this.state.movies);
     }
     this.setState({
       movies: this.state.movies,
@@ -71,22 +72,28 @@ class App extends React.Component {
     e.preventDefault();
   }
 
-  handleWatchedClicked() {
-    const watched = this.state.movies.filter((movie) => {
-      return movie.title.toLowerCase().includes(this.state.movieSearch.toLowerCase());
+  handleWatchedFlagToggled(title, watched) {
+    this.setState((state) => {
+      return {movies: state.movies.map((movie) => {
+        return movie.title === title ? { ...movie, "watched": watched } : movie;
+      })}
     });
-    this.setState({
-      moviesToRender: watched
-    })
+  }
+
+  handleWatchClicked() {
+    this.setState((state) => {
+      return {moviesToRender: state.movies.filter((movie) => {
+        return movie.watched === true;
+      })}
+    });
   }
 
   handleToWatchClicked() {
-    const toWatch = this.state.movies.filter((movie) => {
-      return movie.title.toLowerCase().includes(this.state.movieSearch.toLowerCase());
+    this.setState((state) => {
+      return {moviesToRender: state.movies.filter((movie) => {
+        return movie.watched === false;
+      })}
     });
-    this.setState({
-      moviesToRender: toWatch
-    })
   }
 
   render() {
@@ -106,6 +113,9 @@ class App extends React.Component {
         </div>
           <MovieList
             movies={this.state.moviesToRender}
+            handleWatchClicked={this.handleWatchClicked.bind(this)}
+            handleToWatchClicked={this.handleToWatchClicked.bind(this)}
+            handleWatchedFlagToggled={this.handleWatchedFlagToggled.bind(this)}
           />
       </div>
     )
